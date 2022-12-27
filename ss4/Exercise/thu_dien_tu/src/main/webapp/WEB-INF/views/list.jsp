@@ -9,26 +9,26 @@
     <form:form action="/mail/getmail" method="post" modelAttribute="email">
         <table>
             <tr>
-                <td>Languages: </td>
+                <td><form:label path="engLish">Languages: </form:label></td>
                 <td><form:select path="engLish">
                     <form:options items="${languages}"></form:options>
                 </form:select>
                 </td>
             </tr>
             <tr>
-                <td>Page Size</td>
+                <td><form:label path="pageSize">Page Size: </form:label></td>
                 <td>
                     Show <form:select path="pageSize"><form:options items="${pageSizes}"></form:options></form:select> email per page
                 </td>
             </tr>
             <tr>
-                <td>Spams fillter</td>
+                <td><form:label path="spams">Spams fillter </form:label></td>
                 <td>
                     <form:checkbox path="spams" value="Enable spams fillter"/> Enable spams fillter
                 </td>
             </tr>
             <tr>
-                <td>Signature</td>
+                <td><form:label path="signature">Signature: </form:label></td>
                 <td>
                     <form:textarea path="signature"/>
                 </td>
