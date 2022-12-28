@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.service.ICalService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("calculate")
 public class CalController {
+
+    @Autowired
+    ICalService iCalService;
     @GetMapping("")
     public String calculate(){
         return "calculator";
@@ -20,16 +25,16 @@ public class CalController {
         float result = 0;
         switch (operate){
             case "Addition(+)":
-                result = num1 + num2;
+                result = iCalService.getAddition(num1,num2);
                 break;
             case "Subtraction(-)":
-                result = num1 - num2;
+                result = iCalService.getSubtraction(num1,num2);
                 break;
             case "Multiplication(*)":
-                result = num1 * num2;
+                result = iCalService.getMultiplication(num1,num2);
                 break;
             case "Division(/)":
-                result = num1 / num2;
+                result = iCalService.getDivision(num1,num2);
                 break;
         }
         model.addAttribute("result",result);
