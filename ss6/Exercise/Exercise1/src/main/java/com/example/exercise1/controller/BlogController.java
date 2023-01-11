@@ -6,7 +6,9 @@ import com.example.exercise1.service.IAuthorService;
 import com.example.exercise1.service.IBlogService;
 import com.example.exercise1.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,8 +58,10 @@ public class BlogController {
     }
 
     @GetMapping("search")
-    public String search(@RequestParam("name")String name,Model model){
-        model.addAttribute("blogList",iBlogService.search(name));
+    public String search(@RequestParam("name")String name,@RequestParam(value = "page",defaultValue = "0")int page,Model model){
+//        Page<Blog> page = (Page<Blog>) model.addAttribute("blogList",iBlogService.search(name));
+        Sort sort = Sort.by("date");
+        model.addAttribute("blogList",iBlogService.search(PageRequest.of(page,3,sort),name));
         return "list";
     }
 

@@ -5,6 +5,7 @@ import com.example.exercise1.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.List;
 public class BlogService implements IBlogService{
     @Autowired
     IBlogRepository iBlogRepository;
-    @Override
-    public List<Blog> findAll() {
-        return iBlogRepository.findAll();
-    }
+//    @Override
+//    public List<Blog> findAll() {
+//        return iBlogRepository.findAll();
+//    }
 
     @Override
     public void save(Blog blog) {
@@ -33,8 +34,8 @@ public class BlogService implements IBlogService{
     }
 
     @Override
-    public List<Blog> search(String name) {
-        return iBlogRepository.findAllByName(name);
+    public Page<Blog> search(PageRequest pageRequest,String name) {
+        return iBlogRepository.findAllByName(pageRequest,name);
     }
 
     @Override

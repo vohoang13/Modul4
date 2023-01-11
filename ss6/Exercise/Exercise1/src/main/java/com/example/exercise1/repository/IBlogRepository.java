@@ -16,7 +16,7 @@ import java.util.List;
 @Transactional
 public interface IBlogRepository extends JpaRepository<Blog,Integer>{
     @Query(value = "select * from blog b where b.name like :name",nativeQuery = true)
-    List<Blog> findAllByName(@Param("name")String name);
+    Page<Blog> findAllByName(PageRequest pageRequest,@Param("name")String name);
 
     @Modifying
     @Query(value = "delete from blog b where b.category_id_category = :id",nativeQuery = true)
