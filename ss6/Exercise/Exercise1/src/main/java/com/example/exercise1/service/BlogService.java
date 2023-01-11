@@ -3,6 +3,8 @@ package com.example.exercise1.service;
 import com.example.exercise1.model.Blog;
 import com.example.exercise1.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,9 +37,20 @@ public class BlogService implements IBlogService{
         return iBlogRepository.findAllByName(name);
     }
 
-//    @Override
-//    public void edit(Blog blog) {
-//        iBlogRepository.u
-//    }
+    @Override
+    public void deleteByIdCategory(Integer id) {
+        iBlogRepository.deleteBlogsByCategory_IdCategory(id);
+    }
+
+    @Override
+    public List<Blog> findByIdCategory(Integer id) {
+        return iBlogRepository.findAllByCategory_IdCategory(id);
+    }
+
+    @Override
+    public Page<Blog> findAllWithPage(PageRequest pageRequest) {
+        return iBlogRepository.findAllWithPage(pageRequest);
+    }
+
 
 }

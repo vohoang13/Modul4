@@ -29,7 +29,6 @@ public class ProductReponsitory implements IProductReponsitory{
         BaseReponsitory.entityManager.remove(products); //merge update
         entityTransaction.commit();
     }
-
     @Override
     public void edit(Product product) {
         EntityTransaction entityTransaction = BaseReponsitory.entityManager.getTransaction();
@@ -37,6 +36,7 @@ public class ProductReponsitory implements IProductReponsitory{
         BaseReponsitory.entityManager.merge(product);  //merge update
         entityTransaction.commit();
     }
+
 
     @Override
     public Product findById(int id) {

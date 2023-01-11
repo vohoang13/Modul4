@@ -1,10 +1,13 @@
 package com.example.exercise1.controller;
 
 import com.example.exercise1.model.Blog;
+import com.example.exercise1.model.Category;
 import com.example.exercise1.service.IAuthorService;
 import com.example.exercise1.service.IBlogService;
 import com.example.exercise1.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,9 @@ public class BlogController {
     ICategoryService iCategoryService;
 
     @GetMapping("")
-    public String getList(Model model){
-        model.addAttribute("blogList",iBlogService.findAll());
-//        model.addAttribute("authorList",iAuthorService.findAll());
-//        model.addAttribute("categoryList",iCategoryService.findAll());
+    public String getList(@RequestParam(value = "page",defaultValue = "0")int page, Model model){
+        Sort sort = Sort.by("date");
+        model.addAttribute("blogList",iBlogService.findAllWithPage(PageRequest.of(page, Integer.parseInt("3"),sort)));
         return "list";
     }
 
@@ -73,4 +75,45 @@ public class BlogController {
         return "redirect:/blog";
     }
 
+    @GetMapping("categoryList")
+    public String categoryList(Model model){
+        model.addAttribute("categoryList",iCategoryService.findAll());
+        return "categoryList";
+    }
+
+    @GetMapping("/deleteCategory/{idCategory}")
+    public String deleteCategory(@PathVariable("idCategory")Integer idCategory){
+        iBlogService.deleteByIdCategory(idCategory);
+        iCategoryService.deleteById(idCategory);
+        return "redirect:/blog/categoryList";
+    }
+
+    @GetMapping("/detailCategory/{idCategory}")
+    public String detailCategory(@PathVariable("idCategory")Integer idCategory, Model model){
+        model.addAttribute("listBlog",iBlogService.findByIdCategory(idCategory));
+        return "detailCategory";
+    }
+
+    @GetMapping("createCategory")
+    public String createCategory(Model model){
+        model.addAttribute("category",new Category());
+        return "createCategory";
+    }
+
+    @PostMapping("doCreateCategory")
+    public String doCreateCategory(@ModelAttribute("category")Category category){
+        iCategoryService.save(category);
+        return "redirect:/blog/categoryList";
+    }
+    @GetMapping("/editCategory/{idCategory}")
+    public String editCategory(@PathVariable("idCategory")Integer idCategory,Model model){
+        model.addAttribute("category",iCategoryService.findById(idCategory));
+        return "editCategory";
+    }
+
+    @PostMapping("editCategory")
+    public String getEditCategory(@ModelAttribute("category")Category category){
+        iCategoryService.save(category);
+        return "redirect:/blog/categoryList";
+    }
 }

@@ -16,7 +16,7 @@ public class Blog {
     @JoinColumn
     private Author author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn
     private Category category;
 
