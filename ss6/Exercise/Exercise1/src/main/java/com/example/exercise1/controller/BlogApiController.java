@@ -49,6 +49,17 @@ public class BlogApiController {
     public ResponseEntity<List<Blog>> detailCategory(@PathVariable("idCategory")Integer id){
         List<Blog> blog =iBlogService.findByIdCategory(id);
         return new ResponseEntity<>(blog,HttpStatus.OK);
+    }
 
+    @PostMapping("create")
+    public ResponseEntity<?> createCategory(@RequestBody Category category){
+        iCategoryService.save(category);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/deleteCategory/{idCategory}")
+    public ResponseEntity<?> deleteCategory(@PathVariable("idCategory")Integer id){
+        iCategoryService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
