@@ -52,7 +52,7 @@ public class ProductController {
         return "redirect:/product/cartProduct";
     }
 
-    @GetMapping("/deleteCartId/{idProduct}")
+    @GetMapping("/cartProduct/deleteCartId/{idProduct}")
     public String deleteCartId(@PathVariable("idProduct")Integer idProduct,@SessionAttribute Cart cart){
         Product product = iProductService.findById(idProduct);
         cart.deleteCartId(product);

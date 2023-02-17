@@ -60,7 +60,7 @@ public class Cart {
     public void deleteCartId(Product product){
         for(Map.Entry<Product,Integer> products : productList.entrySet()){
             if(products.getKey().getIdProduct().equals(product.getIdProduct())){
-                productList.remove(products);
+                productList.remove(product);
             }
         }
 
