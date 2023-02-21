@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface IBlogService {
-//    List<Blog> findAll();
+    List<Blog> findAll();
 
     void save(Blog blog);
 
@@ -17,12 +17,14 @@ public interface IBlogService {
 
     void deleteById(Integer id);
 
-    Page<Blog> search(PageRequest pageRequest,String name);
+    Page<Blog> searchPage(PageRequest pageRequest,String name);
 
     void deleteByIdCategory(Integer id);
 
     List<Blog> findByIdCategory(Integer id);
 
     Page<Blog> findAllWithPage(PageRequest pageRequest);
+
+    List<Blog> searchWithAjax(String name);
 
 }

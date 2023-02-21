@@ -62,4 +62,9 @@ public class BlogApiController {
         iCategoryService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/search/{name}")
+    public List<Blog> searchBlog(@PathVariable("name")String name){
+        return iBlogService.searchWithAjax(name);
+    }
 }

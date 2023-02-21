@@ -31,6 +31,12 @@ public class BlogController {
         return "list";
     }
 
+    @GetMapping("blog_ajax")
+    public String getBlogAjax(Model model){
+        model.addAttribute("blogList",iBlogService.findAll());
+        return "listBlog_ajax";
+    }
+
     @GetMapping("createBlog")
     public String createBlog(Model model){
         model.addAttribute("blog",new Blog());
@@ -61,7 +67,7 @@ public class BlogController {
     public String search(@RequestParam("name")String name,@RequestParam(value = "page",defaultValue = "0")int page,Model model){
 //        Page<Blog> page = (Page<Blog>) model.addAttribute("blogList",iBlogService.search(name));
         Sort sort = Sort.by("date");
-        model.addAttribute("blogList",iBlogService.search(PageRequest.of(page,3,sort),name));
+        model.addAttribute("blogList",iBlogService.searchPage(PageRequest.of(page,3,sort),name));
         return "list";
     }
 

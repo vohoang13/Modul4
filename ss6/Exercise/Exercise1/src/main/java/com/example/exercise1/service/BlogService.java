@@ -13,10 +13,12 @@ import java.util.List;
 public class BlogService implements IBlogService{
     @Autowired
     IBlogRepository iBlogRepository;
-//    @Override
-//    public List<Blog> findAll() {
-//        return iBlogRepository.findAll();
-//    }
+
+
+    @Override
+    public List<Blog> findAll() {
+        return iBlogRepository.findAll();
+    }
 
     @Override
     public void save(Blog blog) {
@@ -34,7 +36,7 @@ public class BlogService implements IBlogService{
     }
 
     @Override
-    public Page<Blog> search(PageRequest pageRequest,String name) {
+    public Page<Blog> searchPage(PageRequest pageRequest,String name) {
         return iBlogRepository.findAllByName(pageRequest,name);
     }
 
@@ -51,6 +53,11 @@ public class BlogService implements IBlogService{
     @Override
     public Page<Blog> findAllWithPage(PageRequest pageRequest) {
         return iBlogRepository.findAllWithPage(pageRequest);
+    }
+
+    @Override
+    public List<Blog> searchWithAjax(String name) {
+        return iBlogRepository.findByName("%"+name+"%");
     }
 
 
