@@ -33,7 +33,8 @@ public class BlogController {
 
     @GetMapping("blog_ajax")
     public String getBlogAjax(Model model){
-        model.addAttribute("blogList",iBlogService.findAll());
+//        model.addAttribute("blogList",iBlogService.findAll());
+        model.addAttribute("blogList",iBlogService.findAllWithPage(PageRequest.ofSize(3)));
         return "listBlog_ajax";
     }
 

@@ -21,6 +21,9 @@ public interface IBlogRepository extends JpaRepository<Blog,Integer>{
     @Query(value = "select * from blog b where b.name like :name", nativeQuery = true)
     List<Blog> findByName(@Param("name") String name);
 
+    @Query(value = "select * from blog b order by b.date desc ", nativeQuery = true)
+    List<Blog> findAll();
+
     @Modifying
     @Query(value = "delete from blog b where b.category_id_category = :id",nativeQuery = true)
     void deleteBlogsByCategory_IdCategory(@Param("id")Integer id);
@@ -28,6 +31,6 @@ public interface IBlogRepository extends JpaRepository<Blog,Integer>{
     @Query(value = "select * from blog b where b.category_id_category = :id",nativeQuery = true)
     List<Blog> findAllByCategory_IdCategory(@Param("id")Integer id);
 
-    @Query(value = "select * from blog b",countQuery = "select * from blog b",nativeQuery = true)
+    @Query(value = "select * from blog b order by b.date desc ",countQuery = "select * from blog b order by b.date desc",nativeQuery = true)
     Page<Blog> findAllWithPage(PageRequest pageRequest);
 }

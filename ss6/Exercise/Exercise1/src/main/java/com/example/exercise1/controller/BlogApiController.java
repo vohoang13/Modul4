@@ -34,9 +34,8 @@ public class BlogApiController {
     }
 
     @GetMapping("findAll")
-    public Page<Blog> findAllBlog(@RequestParam(value = "page",defaultValue = "0")int page){
-        Sort sort = Sort.by("date");
-        return iBlogService.findAllWithPage(PageRequest.of(page, Integer.parseInt("3"),sort));
+    public List<Blog> findAllBlog(){
+        return iBlogService.findAll();
     }
 
     @GetMapping("/detailBlog/{id}")
