@@ -6,9 +6,7 @@ import com.example.furama.service.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("furama")
@@ -25,10 +23,17 @@ public class FuramaController {
         return "home";
     }
 
-    @GetMapping("create")
+    @GetMapping("createCustomer")
     public String createCustomer(Model model) {
         model.addAttribute("customer", new Customer());
-        return "create";
+        model.addAttribute("customerType",iCustomerTypeService.findAll());
+        return "createCustomer";
+    }
+
+    @PostMapping("doCreateCustomer")
+    public String doCreateCustomer(@ModelAttribute("customer")Customer customer){
+        iCustomerService.save(customer);
+        return "redirect:/furama/listCustomer";
     }
 
     @GetMapping("listCustomer")
