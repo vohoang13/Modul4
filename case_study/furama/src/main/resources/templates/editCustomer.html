@@ -74,44 +74,48 @@
 </nav>
 <div id="body">
     <fieldset>
-        <legend style="font-weight: bold; font-family: Algerian; text-align: center">New Customer</legend>
-        <form class="row g-3" action="/furama/doCreateCustomer" method="post" th:object="${customer}">
+        <legend style="font-weight: bold; font-family: Algerian; text-align: center">Edit Customer</legend>
+        <form class="row g-3" action="/furama/doEditCustomer" method="post" th:object="${customer}">
+            <div class="col-md-4">
+                <label for="inputId" class="form-label">Id Customer</label>
+                <input type="text" class="form-control" id="inputId" th:field="*{id}" th:readonly="${customer.id}">
+            </div>
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Name Customer</label>
-                <input type="text" class="form-control" id="inputName" th:field="*{nameCustomer}">
+                <input type="text" class="form-control" id="inputName" th:field="*{nameCustomer}" th:placeholder="${customer.nameCustomer}">
             </div>
             <div class="col-md-6">
                 <label for="inputDayOfBirth" class="form-label">DayOfBirth</label>
-                <input type="date" class="form-control" id="inputDayOfBirth" th:field="*{dayOfBirth}">
+                <input type="date" class="form-control" id="inputDayOfBirth" th:field="*{dayOfBirth}" th:placeholder="${customer.dayOfBirth}">
             </div>
             <div class="col-12">
                 <label for="inputGender" class="form-label">Gender</label>
-                <input type="text" class="form-control" id="inputGender" th:field="*{gender}">
+                <input type="text" class="form-control" id="inputGender" th:field="*{gender}" th:placeholder="${customer.gender}">
             </div>
             <div class="col-6">
                 <label for="inputIdCard" class="form-label">IdCard</label>
-                <input type="text" class="form-control" id="inputIdCard" th:field="*{idCard}">
+                <input type="text" class="form-control" id="inputIdCard" th:field="*{idCard}" th:placeholder="${customer.idCard}">
             </div>
             <div class="col-md-6">
                 <label for="inputPhoneNumber" class="form-label">PhoneNumber</label>
-                <input type="text" class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}">
+                <input type="text" class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}" th:placeholder="${customer.phoneNumber}">
             </div>
             <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
-                <input type="text" class="form-control" id="inputEmail" th:field="*{email}">
+                <input type="text" class="form-control" id="inputEmail" th:field="*{email}" th:placeholder="${customer.email}">
             </div>
             <div class="col-md-4">
                 <label for="inputCustomerType" class="form-label">CustomerType</label>
                 <select id="inputCustomerType" class="form-select" th:field="*{customerType}">
-                    <option th:each="customerType :${customerType}" th:text="${customerType.nameCustomerType}" th:value="${customerType.id}"></option>
+                    <option th:each="customerType :${customerType}" th:text="${customerType.nameCustomerType}" th:value="${customerType.id}" th:placeholder="${customer.customerType}"></option>
                 </select>
             </div>
             <div class="col-md-2">
                 <label for="inputAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="inputAddress" th:field="*{address}">
+                <input type="text" class="form-control" id="inputAddress" th:field="*{address}" th:placeholder="${customer.address}">
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Add New</button>
+                <button type="submit" class="btn btn-primary">Edit</button>
             </div>
         </form>
     </fieldset>
