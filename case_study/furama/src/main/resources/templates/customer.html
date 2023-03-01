@@ -54,7 +54,7 @@
                     <a class="nav-link active" aria-current="page" href="/furama/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/furama/create">Customer</a>
+                    <a class="nav-link" href="/furama/listCustomer">Customer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Employee</a>
@@ -115,7 +115,10 @@
             <td th:text="${customer.phoneNumber}"></td>
             <td th:text="${customer.customerType.nameCustomerType}"></td>
             <td>
-                <a th:href="@{/furama/deleteCustomer/{id}(id = ${customer.id})}"><button class="btn btn-danger">Delete</button></a>
+<!--                <a th:href="@{/furama/deleteCustomer/{id}(id = ${customer.id})}" id="deleteButton"><button class="btn btn-danger">Delete</button></a>-->
+                <button type="button" th:data-id="${customer.id}" th:data-name="${customer.nameCustomer}" onclick="infoDelete(this.getAttribute('data-id'), this.getAttribute('data-name'))" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete
+                </button>
             </td>
             <td>
                 <button class="btn btn-primary"><a style="color: white; text-decoration: none"
@@ -137,6 +140,38 @@
     </div>
     <img src="/images1682326_222.jpg">
 </div>
+
+<!--Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <%--        sửa ở đây--%>
+        <form th:action="@{/furama/deleteCustomer/}" method="get">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input name="action" value="delete" hidden>
+                    <input name="deleteId" id="deleteId" hidden>
+                    <span class="text-danger">Bạn có muốn xoá khách hàng </span><span id="deleteName"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--Script Delete-->
+<script>
+    function infoDelete(id, name) {
+        document.getElementById("deleteId").innerText=id;
+        document.getElementById("deleteId").value=id;
+        document.getElementById("deleteName").innerText=name;
+    }
+</script>
 <div id="footer">
     <p style="text-align: center">© 2023 FuramaResort, Inc</p>
 </div>

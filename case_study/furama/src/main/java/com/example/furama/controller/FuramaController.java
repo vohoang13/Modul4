@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("furama")
@@ -32,7 +35,11 @@ public class FuramaController {
     }
 
     @PostMapping("doCreateCustomer")
-    public String doCreateCustomer(@ModelAttribute("customer")Customer customer){
+    public String doCreateCustomer(@Valid @ModelAttribute("customer")Customer customer, BindingResult bindingResult,Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("customerType",iCustomerTypeService.findAll());
+            return "createCustomer";
+        }
         iCustomerService.save(customer);
         return "redirect:/furama/listCustomer";
     }
@@ -45,8 +52,8 @@ public class FuramaController {
         return "customer";
     }
 
-    @GetMapping("/deleteCustomer/{id}")
-    public String deleteCustomer(@PathVariable("id")Integer id){
+    @GetMapping("deleteCustomer")
+    public String deleteCustomer(@RequestParam("deleteId")Integer id){
         iCustomerService.deleteById(id);
         return "redirect:/furama/listCustomer";
     }
@@ -59,7 +66,11 @@ public class FuramaController {
     }
 
     @PostMapping("doEditCustomer")
-    public String doEditCustomer(@ModelAttribute("customer")Customer customer){
+    public String doEditCustomer(@Valid @ModelAttribute("customer")Customer customer,BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("customerType",iCustomerTypeService.findAll());
+            return "editCustomer";
+        }
         iCustomerService.save(customer);
         return "redirect:/furama/listCustomer";
     }

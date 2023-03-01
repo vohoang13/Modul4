@@ -52,7 +52,7 @@
                     <a class="nav-link active" aria-current="page" href="/furama/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/furama/create">Customer</a>
+                    <a class="nav-link" href="/furama/listCustomer">Customer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Employee</a>
@@ -83,26 +83,32 @@
             <div class="col-md-6">
                 <label for="inputName" class="form-label">Name Customer</label>
                 <input type="text" class="form-control" id="inputName" th:field="*{nameCustomer}" th:placeholder="${customer.nameCustomer}">
+                <p style="color: red" th:if="${#fields.hasErrors('nameCustomer')}" th:errors="*{nameCustomer}"></p>
             </div>
             <div class="col-md-6">
                 <label for="inputDayOfBirth" class="form-label">DayOfBirth</label>
                 <input type="date" class="form-control" id="inputDayOfBirth" th:field="*{dayOfBirth}" th:placeholder="${customer.dayOfBirth}">
+                <p style="color: red" th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}"></p>
             </div>
             <div class="col-12">
                 <label for="inputGender" class="form-label">Gender</label>
                 <input type="text" class="form-control" id="inputGender" th:field="*{gender}" th:placeholder="${customer.gender}">
+                <p style="color: red" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
             </div>
             <div class="col-6">
                 <label for="inputIdCard" class="form-label">IdCard</label>
                 <input type="text" class="form-control" id="inputIdCard" th:field="*{idCard}" th:placeholder="${customer.idCard}">
+                <p style="color: red" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
             </div>
             <div class="col-md-6">
                 <label for="inputPhoneNumber" class="form-label">PhoneNumber</label>
                 <input type="text" class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}" th:placeholder="${customer.phoneNumber}">
+                <p style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail" class="form-label">Email</label>
                 <input type="text" class="form-control" id="inputEmail" th:field="*{email}" th:placeholder="${customer.email}">
+                <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             </div>
             <div class="col-md-4">
                 <label for="inputCustomerType" class="form-label">CustomerType</label>
@@ -113,6 +119,7 @@
             <div class="col-md-2">
                 <label for="inputAddress" class="form-label">Address</label>
                 <input type="text" class="form-control" id="inputAddress" th:field="*{address}" th:placeholder="${customer.address}">
+                <p style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
             </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Edit</button>

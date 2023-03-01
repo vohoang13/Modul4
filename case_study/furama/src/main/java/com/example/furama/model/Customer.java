@@ -2,6 +2,10 @@ package com.example.furama.model;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Customer {
@@ -9,22 +13,34 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+//    @Pattern(regexp = "^[A-Z]{1}[a-z\\s]$", message = "Tên không đúng định dạng")
+    @NotEmpty(message = "Không được để trống")
     private String nameCustomer;
 
+    @NotEmpty(message = "Không được để trống")
+    @Pattern(regexp = "^(([1][9]([2-9][3-9]|[3-9][0-9]))|([2][0]{2}[0-4]+))[-|/]\\d{2}[-|/]\\d{2}$",message = "ngày sinh phải >= 18 tuổi ")
     private String dayOfBirth;
 
+    @NotEmpty(message = "Không được để trống")
     private String gender;
 
+    @NotEmpty(message = "Không được để trống")
+    @Pattern(regexp = "[0-9]{9}",message = "Số chứng minh phải có 9 chữ số")
     private String idCard;
 
+    @NotEmpty(message = "Không được để trống")
+    @Pattern(regexp = "(090|091|([(]84[)])\\+90|([(]84[)])\\+91)+[0-9]{7}",message = "Số điện thoại không đúng định dạng")
     private String phoneNumber;
 
+    @NotEmpty(message = "Không được để trống")
+    @Pattern(regexp = "^[a-zA-Z0-9]+@gmail.com$",message = "mail không đúng định dạng")
     private String email;
 
     @ManyToOne
     @JoinColumn
     private CustomerType customerType;
 
+    @NotEmpty(message = "Không được để trống")
     private String address;
 
     public Customer() {
