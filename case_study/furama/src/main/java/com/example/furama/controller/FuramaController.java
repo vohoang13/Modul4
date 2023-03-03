@@ -5,6 +5,7 @@ import com.example.furama.service.ICustomerService;
 import com.example.furama.service.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,9 +47,18 @@ public class FuramaController {
 
     @GetMapping("listCustomer")
     public String getListCustomer(@RequestParam(value = "page",defaultValue = "0")int page,Model model,
-                                  @RequestParam(value = "name", defaultValue = "")String name){
+                                  @RequestParam(value = "name", defaultValue = "")String name,
+                                  @RequestParam(value = "idCustomer",defaultValue = "0")Integer id){
         model.addAttribute("searchByName",name);
-        model.addAttribute("listCustomer",iCustomerService.findAllByName(name,PageRequest.of(page,1)));
+        model.addAttribute("idCustomer",id);
+        model.addAttribute("customerType",iCustomerTypeService.findAll());
+        if (name.equals("") && id.equals(0)){
+            model.addAttribute("listCustomer",iCustomerService.findAll(name,PageRequest.of(page, 1)));
+//            model.addAttribute("listCustomer",iCustomerService.find(PageRequest.of(page,1)));
+        }else {
+            model.addAttribute("listCustomer", iCustomerService.findAllByName(name, PageRequest.of(page, 1), id));
+        }
+//            model.addAttribute("listCustomer", iCustomerService.findAllByName(name, PageRequest.of(page, 1), id));
         return "customer";
     }
 

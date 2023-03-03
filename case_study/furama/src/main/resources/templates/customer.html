@@ -86,6 +86,10 @@
                 <td>
                     <form action="/furama/listCustomer" method="get">
                         <input type="text" name="name">
+                        <select name="idCustomer">
+                            <option value="0">Select Type</option>
+                            <option th:each="customerType :${customerType}" th:text="${customerType.nameCustomerType}" th:value="${customerType.id}"></option>
+                        </select>
                         <input type="submit" value="Search">
                     </form>
                 </td>
@@ -129,13 +133,13 @@
     </table>
     <div>
         <span>
-                <button class=" btn btn-primary"><a style="color: white; text-decoration: none" th:if="${listCustomer.hasPrevious()}" th:href="@{/furama/listCustomer(page=${listCustomer.number-1}, name=${searchByName})}">Previous</a></button>
+                <button class=" btn btn-primary"><a style="color: white; text-decoration: none" th:if="${listCustomer.hasPrevious()}" th:href="@{/furama/listCustomer(page=${listCustomer.number-1}, name=${searchByName},idCustomer=${idCustomer})}">Previous</a></button>
         </span>
         <span>
                 <a th:text="${listCustomer.number + 1}"></a>/<a th:text="${listCustomer.totalPages}"></a>
         </span>
         <span>
-                <button class="btn btn-primary"><a style="color: white; text-decoration: none" th:if="${listCustomer.hasNext()}" th:href="@{/furama/listCustomer(page=${listCustomer.number+1},name = ${searchByName})}">Next</a></button>
+                <button class="btn btn-primary"><a style="color: white; text-decoration: none" th:if="${listCustomer.hasNext()}" th:href="@{/furama/listCustomer(page=${listCustomer.number+1},name=${searchByName},idCustomer=${idCustomer})}">Next</a></button>
         </span>
     </div>
     <img src="/images1682326_222.jpg">
@@ -144,7 +148,6 @@
 <!--Modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <%--        sửa ở đây--%>
         <form th:action="@{/furama/deleteCustomer/}" method="get">
             <div class="modal-content">
                 <div class="modal-header">

@@ -15,6 +15,7 @@ public class Customer {
 
 //    @Pattern(regexp = "^[A-Z]{1}[a-z\\s]$", message = "Tên không đúng định dạng")
     @NotEmpty(message = "Không được để trống")
+//    @Pattern(regexp = "\\b[A-Z][a-z]*\\b", message = "tên không đúng định dạng")
     private String nameCustomer;
 
     @NotEmpty(message = "Không được để trống")

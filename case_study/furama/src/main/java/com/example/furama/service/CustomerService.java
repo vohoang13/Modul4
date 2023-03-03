@@ -5,6 +5,7 @@ import com.example.furama.repository.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +21,13 @@ public class CustomerService implements ICustomerService{
     }
 
     @Override
-    public List<Customer> findAll() {
-        return iCustomerRepository.findAll();
+    public Page<Customer> findAll(String name,PageRequest pageRequest) {
+        return iCustomerRepository.findAllByNameCustomerLike("%" + name + "%", pageRequest);
+    }
+
+    @Override
+    public Page<Customer> find(PageRequest pageRequest) {
+        return iCustomerRepository.findAll(pageRequest);
     }
 
     @Override
@@ -35,7 +41,7 @@ public class CustomerService implements ICustomerService{
     }
 
     @Override
-    public Page<Customer> findAllByName(String name,PageRequest pageRequest) {
-        return iCustomerRepository.findAllByNameCustomerLike("%" + name + "%",pageRequest);
+    public Page<Customer> findAllByName(String name,PageRequest pageRequest,Integer id) {
+        return iCustomerRepository.findByNameCustomerLikeAndCustomerType_IdLike("%" + name + "%",pageRequest,id);
     }
 }
